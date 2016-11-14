@@ -1,0 +1,7 @@
+<!-- Add this to the appropriate topology file -->
+<!-- In HDP 2.4 sandbox, this is sandbox.xml -->
+  <service>
+    <role>WEATHER</role>
+    <url>http://api.openweathermap.org:80</url>
+  </service>
+

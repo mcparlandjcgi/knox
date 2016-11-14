@@ -1,0 +1,11 @@
+<!-- Install to 
+ <GATEWAY_HOME>/data/services/weather/0.0.1/rewrite.xml
+-->
+
+<rules>
+  <rule dir="IN" name="WEATHER/weather/inbound" pattern="*://*:*/**/weather/{path=**}?{**}">
+    <rewrite template="{$serviceUrl[WEATHER]}/{path=**}?{**}"/>
+  </rule>
+</rules>
+
+
