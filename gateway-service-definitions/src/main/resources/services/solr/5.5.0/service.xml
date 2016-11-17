@@ -23,12 +23,7 @@
         <policy role="authorization"/>
     </policies>
     <routes>
-        <route path="/solr">
-            <rewrite apply="SOLR/solr/outbound/app" to="response.body"/>
-        </route>
-        <route path="/solr/**">
-            <rewrite apply="SOLR/solr/outbound/app" to="response.body"/>
-        </route>
+        <route path="/solr/**" />
     </routes>
      <dispatch classname="org.apache.hadoop.gateway.dispatch.PassAllHeadersDispatch"/>
 </service>
