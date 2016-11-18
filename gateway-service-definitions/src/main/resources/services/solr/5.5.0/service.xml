@@ -23,7 +23,7 @@
         <policy role="authorization"/>
     </policies>
     <routes>
-        <route path="/solr/*/*">
+        <route path="/solr/**/**?{**}">
              <rewrite apply="SOLR/solr/inbound/query" to="request.url"/>
         </route>
     </routes>
