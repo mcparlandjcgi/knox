@@ -21,8 +21,8 @@
     <rewrite template="{$serviceUrl[SOLR]}/{collection}/{query}?{**}"/>
   </rule -->
   
-  <rule dir="IN" name="SOLR/solr/inbound/query" pattern="*://*:*/{**}/solr/*/*?{**}">
-       <rewrite template="{$serviceUrl[SOLR]}/*/*?{**}"/>
-</rule>
+  <rule dir="IN" name="SOLR/solr/inbound/query" pattern="*://*:*/**/solr/{collection}/{query}?{**}">
+       <rewrite template="{$serviceUrl[SOLR]}/{collection}/{query}?{**}"/>
+  </rule>
 
 </rules>
