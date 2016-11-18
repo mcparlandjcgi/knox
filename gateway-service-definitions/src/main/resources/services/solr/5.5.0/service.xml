@@ -23,10 +23,10 @@
         <policy role="authorization"/>
     </policies>
     <routes>
-        <route path="/solr/**">
-             <rewrite apply="SOLR/solr/inbound/query" to="request.url"/>
-        </route>
+        <route path="/solr/**" />
+    </routes>
+    <routes>
+        <route path="/solr" />
     </routes>
      <dispatch classname="org.apache.hadoop.gateway.dispatch.PassAllHeadersDispatch"/>
 </service>
-

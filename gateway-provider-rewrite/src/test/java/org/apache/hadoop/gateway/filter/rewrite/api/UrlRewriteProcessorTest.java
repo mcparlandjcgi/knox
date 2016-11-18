@@ -17,25 +17,29 @@
  */
 package org.apache.hadoop.gateway.filter.rewrite.api;
 
-import org.apache.hadoop.gateway.util.urltemplate.Parser;
-import org.apache.hadoop.gateway.util.urltemplate.Template;
-import org.easymock.EasyMock;
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.hadoop.gateway.util.urltemplate.Expander;
+import org.apache.hadoop.gateway.util.urltemplate.Matcher;
+import org.apache.hadoop.gateway.util.urltemplate.Parser;
+import org.apache.hadoop.gateway.util.urltemplate.Template;
+import org.easymock.EasyMock;
+import org.junit.Test;
 
 public class UrlRewriteProcessorTest {
 
@@ -273,4 +277,29 @@ public class UrlRewriteProcessorTest {
     processor.destroy();
   }
 
+  @Test
+  public void testSolrRewrite() throws Exception {
+    URI inputUri, outputUri;
+    Matcher<Void> matcher;
+    Matcher<Void>.Match match;
+    Template input, pattern, template;
+
+    inputUri = new URI( "https://hortonworks.sandbox.hdp.24.test:8443/gateway/sandbox/solr/KnoxSolrIntegration/select?q=*.*&wt=json&indent=true" );
+
+    input = Parser.parse( inputUri.toString() );
+    pattern = Parser.parse( "*://*:*/**/solr/{collection}/{query}?{**}" );
+    template = Parser.parse( "http://sandbox.hortonworks.com/solr/{collection}/{query}?{**}" );
+
+    matcher = new Matcher<Void>();
+    matcher.add( pattern, null );
+    match = matcher.match( input );
+
+    outputUri = Expander.expand( template, match.getParams(), null );
+
+    assertThat(
+        outputUri.toString(),
+        is( "http://sandbox.hortonworks.com/solr/KnoxSolrIntegration/select?q=*.*&indent=true&wt=json" ) );
+  }
+
+  
 }
