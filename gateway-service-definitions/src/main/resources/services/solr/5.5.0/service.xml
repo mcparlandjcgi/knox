@@ -15,7 +15,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<service role="SOLRAPI" name="solr" version="5.5.0">
+<service role="SOLRAPI" name="solrapi" version="5.5.0">
     <policies>
         <policy role="webappsec"/>
         <policy role="authentication" name="Anonymous"/>
