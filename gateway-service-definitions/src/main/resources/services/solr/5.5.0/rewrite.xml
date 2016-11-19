@@ -18,7 +18,7 @@
 <rules>
   <!--Only supporting Solr queries via Knox -->
   <rule dir="IN" name="SOLRAPI/solr/inbound/query" pattern="*://*:*/**/solr/{collection=**}/{query=**}?{**}">
-       <rewrite template="{$serviceUrl[SOLR]}/{collection=**}/{query=**}?{**}"/>
+       <rewrite template="{$serviceUrl[SOLRAPI]}/{collection=**}/{query=**}?{**}"/>
   </rule>
 
 </rules>
