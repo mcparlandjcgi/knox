@@ -287,7 +287,7 @@ public class UrlRewriteProcessorTest {
     inputUri = new URI( "https://hortonworks.sandbox.hdp.24.test:8443/gateway/sandbox/solr/KnoxSolrIntegration/select?q=*.*&wt=json&indent=true" );
 
     input = Parser.parse( inputUri.toString() );
-    pattern = Parser.parse( "://*:*/**/solr/{collection=**}/{query=**}?{**}" );
+    pattern = Parser.parse( "*://*:*/**/solr/{collection=**}/{query=**}?{**}" );
     template = Parser.parse( "http://sandbox.hortonworks.com/solr/{collection=**}/{query=**}?{**}" );
 
     matcher = new Matcher<Void>();
